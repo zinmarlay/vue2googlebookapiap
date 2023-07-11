@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-container>
         <v-row>
             <v-col cols="6">
                 <v-text-field
@@ -49,7 +48,6 @@
 
             </v-col>
         </v-row>
-    </v-container>
   </div>
 </template>
 
@@ -64,6 +62,9 @@ export default {
         }
             },
             methods:{
+                addBookList(index){
+                    this.$emit('add-book-list',this.searchResults[index])
+                },
                 async search(keyword){
                     this.searchResults = []
                     //クエリーストリングを作成
