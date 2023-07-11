@@ -4,6 +4,7 @@
     <v-main>
       <v-container>
        <router-view
+       :books="books"
        @add-book-list="addBook"
        />
       </v-container>
@@ -35,28 +36,36 @@ export default {
         localStorage.removeItem(STORAGE_KEY);
     }
   }
+  },
+  methods: {
+      addBook(e) {
+          this.books.push({
+            id: this.books.length,
+            title: e.title,
+            img: e.img,
+            description: e.description,
+            readDate: '',
+            memo:''
+          });
+          // this.newBook = '';
+          this.saveBooks();
+          //最後に追加したidの取得コード
+          //console.log(this.books.slice(-1)[0].id)
+
+          //最新のidを取得する
+          this.gotoEditPage(this.books.slice(-1)[0].id)
       },
-      methods: {
-          addBook(e) {
-              this.books.push({
-                id: this.books.length,
-                title: e.title,
-                img: e.img,
-                description: e.description,
-                readDate: '',
-                memo:''
-              });
-              // this.newBook = '';
-              this.saveBooks();
-          },
-          removeBook(x) {
-              this.books.splice(x, 1);
-              this.saveBooks();
-          },
-          saveBooks() {
-              const parsed = JSON.stringify(this.books);//object to json string format change
-              localStorage.setItem(STORAGE_KEY, parsed);
-          }
+      removeBook(x) {
+          this.books.splice(x, 1);
+          this.saveBooks();
+      },
+      saveBooks() {
+          const parsed = JSON.stringify(this.books);//object to json string format change
+          localStorage.setItem(STORAGE_KEY, parsed);
+      },
+      gotoEditPage(id){
+          this.$router.push(`/edit/${id}`)
+      }
   }
 };
 </script>
