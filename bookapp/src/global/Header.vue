@@ -6,13 +6,23 @@
       dark
     >
     <v-spacer></v-spacer>
+    <v-btn 
+    color="error"
+    @click="deleteLocalStorage"
+    >削除する</v-btn>
     </v-app-bar>
-  </div>
+  </div>  
 </template>
 
 <script>
 export default {
-    name: "HeaderView"
+    name: "HeaderView",
+    methods:{
+      deleteLocalStorage()
+      {
+        this.$emit('delete-local-storage')
+      }
+    }
 }
 </script>
 
